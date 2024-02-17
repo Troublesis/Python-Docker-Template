@@ -1,3 +1,5 @@
+# Modify the author, author_email, description, url, and classifiers fields to match your project.
+
 import os
 
 from setuptools import find_packages, setup
