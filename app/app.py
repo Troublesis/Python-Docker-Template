@@ -10,10 +10,10 @@ def main():
     print(config("DEFAULT", "TEST"))
     print(config_list("DEFAULT", "TEST_LIST"))
 
-    if "PASSWORD_FILE" in os.environ:
-        with open(os.environ["PASSWORD_FILE"], "r") as f:
-            password = f.read().strip()
-            print(f"Password: {password}")
+    # if "PASSWORD_FILE" in os.environ:
+    #     with open(os.environ["PASSWORD_FILE"], "r") as f:
+    #         password = f.read().strip()
+    #         print(f"Password: {password}")
     time.sleep(2)
 
 

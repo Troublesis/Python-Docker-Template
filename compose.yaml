@@ -12,9 +12,9 @@ networks:
     external: false
 volumes:
   data:
-secrets:
-  password:
-    file: secret/password.txt
+    # secrets:
+    #   password:
+    #     file: secret/password.txt
 services:
   server:
     build:
@@ -34,11 +34,11 @@ services:
       # - ./data:/data this will mount the data folder in the current directory to the /data folder in the container
     environment:
       - TZ=Australia/Sydney
-      - PASSWORD_FILE=/run/secrets/password
-    secrets:
-      - password
-    # watch is for development only, remove it in production
-    # watch will rebuild the image when the source code changes
+      # - PASSWORD_FILE=/run/secrets/password
+      # secrets:
+      #   - password
+      # watch is for development only, remove it in production
+      # watch will rebuild the image when the source code changes
     develop:
       watch:
         - action: rebuild
