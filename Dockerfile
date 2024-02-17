@@ -17,7 +17,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /
+WORKDIR /app
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
@@ -40,16 +40,21 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # Copy the source code into the container.
-COPY . .
+COPY . /app
 
 # Install additional dependencies and set up your project
 RUN python setup.py install
 
+# Create the log directory and give the non-privileged user ownership
+RUN mkdir -p /app/log && chown -R appuser:appuser /app/log
+
+
 # Switch to the non-privileged user to run the application.
 USER appuser
+
 
 # # Expose the port that the application listens on.
 # EXPOSE 8000
 
 # Run the application.
-CMD ["python", "/app/app.py"]
+CMD ["python", "./app/app.py"]

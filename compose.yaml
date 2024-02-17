@@ -27,8 +27,8 @@ services:
     networks:
       - all-in-one
     volumes:
-      - ./log:/log
-      - ./config.ini:/config.ini
+      - ./log:/app/log
+      - ./config.ini:/app/config.ini
       - data:/data # this is make data as permanent storage, so it will not be deleted when the container is deleted
       # you can also use the following to make the data as permanent storage
       # - ./data:/data this will mount the data folder in the current directory to the /data folder in the container
