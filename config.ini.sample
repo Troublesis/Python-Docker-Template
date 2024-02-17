@@ -1,0 +1,4 @@
+# This is a sample configuration file, remove .sample from the file name to use it
+[DEFAULT]
+TEST=This is a test value
+TEST_LIST={value1, value2, value3}
