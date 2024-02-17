@@ -10,6 +10,11 @@
 networks:
   all-in-one:
     external: false
+volumes:
+  data:
+secrets:
+  password:
+    file: secret/password.txt
 services:
   server:
     build:
@@ -23,8 +28,21 @@ services:
       - all-in-one
     volumes:
       - ./log:/log
+      - ./config.ini:/config.ini
+      - data:/data # this is make data as permanent storage, so it will not be deleted when the container is deleted
+      # you can also use the following to make the data as permanent storage
+      # - ./data:/data this will mount the data folder in the current directory to the /data folder in the container
     environment:
       - TZ=Australia/Sydney
+      - PASSWORD_FILE=/run/secrets/password
+    secrets:
+      - password
+    # watch is for development only, remove it in production
+    # watch will rebuild the image when the source code changes
+    develop:
+      watch:
+        - action: rebuild
+          path: .
       # ports:
       #   - 8000:8000
 
