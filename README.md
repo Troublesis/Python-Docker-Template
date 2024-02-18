@@ -13,3 +13,7 @@ A simple Python app for [Docker's Python Language Guide](https://docs.docker.com
 - `python3 -m venv .venv` create virtual environment
 - `source .venv/bin/activate` activate virtual environment on linux system
 - `pip install -e .` setup python environment
+- `pip freeze | grep <package-name>` to check a single pip version
+
+# Git
+- `git init` initiate git
