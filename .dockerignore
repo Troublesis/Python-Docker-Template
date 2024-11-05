@@ -1,10 +1,10 @@
-.DS_Store
-@eaDir/
+**/.DS_Store
+**/@eaDir
 .git
 .gitignore
 .env
 *.pyc
-__pycache__
+**/__pycache__
 .pytest_cache
 .coverage
 htmlcov
@@ -12,7 +12,6 @@ dist
 build
 *.egg-info
 .venv
-venv
 .idea
 .vscode
 *.log

@@ -93,6 +93,7 @@ clean: ## 清除 Docker 容器
 	@docker stop $(PROJECT_NAME) 2>/dev/null || true
 	@$(COMPOSE_ENV) docker compose -f $(DOCKER_COMPOSE_FILE) down
 	@docker rmi $(PROJECT_NAME):$(VERSION) 2>/dev/null || true
+	@docker network prune
 	@echo "$(GREEN)Cleanup complete$(NC)"
 
 # Development Environment
