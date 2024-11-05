@@ -5,7 +5,7 @@
   "search.exclude": {
     "**/.venv": true,
     "**/__pycache__": true,
-    "**/*.pyc": true,
+    "**/*.pyc": true
   },
   "files.exclude": {
     ".vscode": false
