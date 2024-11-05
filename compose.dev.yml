@@ -2,8 +2,8 @@
 services:
   app:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.dev
+      context: .
+      dockerfile: ./Dockerfile.dev
       cache_from:
         - ${PROJECT_NAME}:${VERSION}
     image: ${PROJECT_NAME}:${VERSION}
@@ -12,10 +12,10 @@ services:
       - DEBUG=true
     working_dir: /app
     volumes:
-      - ..:/app
+      - ./:/app
     # command: python src/main.py
     env_file:
-      - ../.env
+      - .env
     tty: true
     stdin_open: true
     restart: unless-stopped
