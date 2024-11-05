@@ -1,18 +1,26 @@
 # Telegram Bot
 
+## Setup project
+
 ```bash
-pre-commit run --all-files && git status && \
-echo -n "Confirm update and commit by enter \"y/n\": " && \
-read ans && echo "$ans" | grep -iq "y" && git add --all && \
-git status && cz c && git push || echo "Exit"
+git clone https://github.com/Troublesis/Python-Docker-Template.git PROJECT_NAME
+git checkout master
 ```
 
 ```bash
-git push -f --set-upstream origin main
+make init
 ```
 
-## Build docker image
+## Git add remote
 
 ```bash
-docker-compose -f docker-compose.yml build && docker-compose up
+git remote add origin GIT_URL
 ```
+
+## Push all to git
+
+```bash
+make acp
+```
+
+

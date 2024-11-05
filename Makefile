@@ -58,6 +58,7 @@ init:  ## 初始化项目
 
 git_init: ## 初始化 Git 仓库
 	@echo "$(BLUE)Initializing Git repository$(NC)"
+	@git checkout master
 	@rm -rf .git
 	@git init
 	@git config user.name "${NAME}"
