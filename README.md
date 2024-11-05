@@ -22,5 +22,3 @@ git remote add origin GIT_URL
 ```bash
 make acp
 ```
-
-

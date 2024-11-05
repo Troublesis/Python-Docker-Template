@@ -26,11 +26,11 @@ init:  ## 初始化项目
 	@echo "$(BLUE)Initializing project: $$(basename $$(pwd))$(NC)"
 	@# Set PYTHONPATH
 	@export PYTHONPATH="$$PYTHONPATH:$$(pwd)/src"
-	
+
 	@# Create .env file
 	@echo "$(GREEN)Creating environment variable file...$(NC)"
 	@echo "DEBUG=true" > .env
-	
+
 	@# Python environment setup
 	@if [ -d ".venv" ]; then \
 		echo "$(YELLOW).venv directory already exists$(NC)"; \
@@ -116,6 +116,7 @@ acp: ## Git --all push
 	if [ "$$confirm" = "y" ]; then \
 		git add --all && \
 		git status && \
+		pre-commit run --all-files && \
 		cz commit && git push; \
 	else \
 		echo "$(YELLOW)Commit cancelled$(NC)"; \
