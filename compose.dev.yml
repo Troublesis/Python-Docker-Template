@@ -3,10 +3,13 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ${DOCKERFILE:-Dockerfile.dev}
+      args:
+        - POETRY_VERSION=${POETRY_VERSION:-1.8.3}
       cache_from:
         - ${PROJECT_NAME}:${VERSION}
     image: ${PROJECT_NAME}:${VERSION}
+
     container_name: ${PROJECT_NAME}
     environment:
       - DEBUG=true

@@ -1,10 +1,14 @@
 # Project Configuration
-PROJECT_NAME := python-docker-template
-PYTHON_VERSION := 3.9.19
 VERSION ?= v0.0.1-dev
+DOCKER_COMPOSE_FILE ?= compose.dev.yml
+DOCKERFILE ?= Dockerfile.dev
+
+PROJECT_NAME ?= python-docker-template
+PYTHON_VERSION ?= 3.9.19
+POETRY_VERSION ?= 1.8.3
+
 NAME := troublesis
 EMAIL := bamboo5320@gmail.com
-DOCKER_COMPOSE_FILE := compose.dev.yml
 
 # Colors
 BLUE := \033[1;34m
@@ -66,9 +70,12 @@ git_init: ## 初始化 Git 仓库
 
 # Docker Operations
 setup: ## 构建 Docker 镜像并启动容器
-	@echo "$(BLUE)Setting up $(PROJECT_NAME):$(VERSION)$(NC)"
-	@$(COMPOSE_ENV) docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build || \
+	@echo "$(BLUE)Setting up $(PROJECT_NAME):$(VERSION) using $(DOCKERFILE)$(NC)"
+	@$(COMPOSE_ENV) DOCKER_BUILDKIT=1 DOCKERFILE=$(DOCKERFILE) docker compose -f $(DOCKER_COMPOSE_FILE) build \
+		--build-arg POETRY_VERSION=$(POETRY_VERSION) || \
 		(echo "$(RED)Docker compose build failed$(NC)" && exit 1)
+	@$(COMPOSE_ENV) docker compose -f $(DOCKER_COMPOSE_FILE) up -d || \
+		(echo "$(RED)Docker compose up failed$(NC)" && exit 1)
 
 push: ## 推送 Docker 镜像到仓库
 	@echo "$(BLUE)Pushing Docker image: $(PROJECT_NAME):$(VERSION)$(NC)"
@@ -111,12 +118,12 @@ cz_setup: ## 设定 cz commit
 	@echo "$(GREEN)Git commit workflow configured$(NC)"
 
 acp: ## Git --all push
+	@pre-commit run --all-files
 	@git status
 	@read -p "Proceed with commit? (y/n): " confirm && \
 	if [ "$$confirm" = "y" ]; then \
 		git add --all && \
 		git status && \
-		pre-commit run --all-files && \
 		cz commit && git push; \
 	else \
 		echo "$(YELLOW)Commit cancelled$(NC)"; \

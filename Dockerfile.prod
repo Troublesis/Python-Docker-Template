@@ -1,5 +1,7 @@
 FROM python:3.9.19-alpine3.19 AS builder
 
+LABEL maintainer="bamboo5320@gmail.com"
+
 # Set working directory
 WORKDIR /app
 
@@ -27,10 +29,12 @@ RUN poetry config virtualenvs.create false \
 # Production image
 FROM python:3.9.19-alpine3.19
 
-LABEL maintainer="bamboo5320@gmail.com"
-
 # Set working directory and runtime environment variables
 WORKDIR /app
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONPATH=/app
@@ -38,6 +42,3 @@ ENV PYTHONUNBUFFERED=1 \
 # Copy application code and dependencies
 COPY ./ ./
 COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
-
-# Command to run the application
-# CMD ["python", "src/main.py"]
