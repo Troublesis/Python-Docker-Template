@@ -106,6 +106,7 @@ clean: ## 清除 Docker 容器
 # Development Environment
 local: ## 设定本地项目环境
 	@echo "$(BLUE)Setting up local development environment$(NC)"
+	@export PYTHONPATH="${PYTHONPATH}:$PWD/src"
 	@pyenv exec poetry env use $(PYTHON_VERSION)
 	@poetry install
 	@poetry shell
@@ -118,12 +119,12 @@ cz_setup: ## 设定 cz commit
 	@echo "$(GREEN)Git commit workflow configured$(NC)"
 
 acp: ## Git --all push
-	@pre-commit run --all-files
 	@git status
 	@read -p "Proceed with commit? (y/n): " confirm && \
 	if [ "$$confirm" = "y" ]; then \
 		git add --all && \
 		git status && \
+		pre-commit run --all-files && \
 		cz commit && git push; \
 	else \
 		echo "$(YELLOW)Commit cancelled$(NC)"; \

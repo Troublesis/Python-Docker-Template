@@ -6,4 +6,4 @@ DEBUG = false
 
 [bark]
 url = "https://api.day.app"
-api = "enter_your_api"
+apikey = "enter_your_api"

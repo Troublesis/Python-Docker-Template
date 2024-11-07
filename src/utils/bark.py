@@ -2,8 +2,7 @@ from urllib.parse import quote_plus
 
 import requests
 
-from src.utils.config import settings
-from src.utils.logger import logger
+from config import logger, settings
 
 
 class Bark:
@@ -62,7 +61,7 @@ class Bark:
         }
 
         full_url = (
-            f'{settings.from_env("bark").url}/{settings.from_env("bark").api}/{encoded_params["body"]}?'
+            f'{settings.from_env("bark").url}/{settings.from_env("bark").apikey}/{encoded_params["body"]}?'
             f"url={encoded_params['url']}&icon={encoded_params['icon']}&"
             f"sound={sound}&group={encoded_params['group']}&"
             f"title={encoded_params['title']}&badge=1&level={level}&"
